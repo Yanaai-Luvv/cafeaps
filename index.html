@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aplikasi Kasir Kafe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>☕ Kasir Kafe</h1>
+    <nav>
+      <button data-tab="menu" class="aktif">Menu</button>
+      <button data-tab="transaksi">Transaksi</button>
+      <button data-tab="kelola">Kelola</button>
+      <button data-tab="riwayat">Riwayat</button>
+      <button data-tab="laporan">Laporan</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. DAFTAR MENU, CARI, URUTKAN -->
+    <section id="menu" class="tab aktif">
+      <h2>Daftar Menu</h2>
+      <div class="bar">
+        <input id="kataCari" placeholder="Nama atau kode (K01)">
+        <select id="modeCari">
+          <option value="nama">Linear search (nama)</option>
+          <option value="kode">Binary search (kode)</option>
+        </select>
+        <button onclick="aksiCari()">Cari</button>
+        <button class="abu" onclick="tampil=null;renderMenu()">Reset</button>
+      </div>
+      <div class="bar">
+        <select id="kriteria"><option value="harga">Harga</option><option value="nama">Nama</option><option value="stok">Stok</option></select>
+        <select id="algo"><option value="bubble">Bubble sort</option><option value="selection">Selection sort</option></select>
+        <select id="arah"><option value="naik">Naik</option><option value="turun">Turun</option></select>
+        <button onclick="aksiUrut()">Urutkan</button>
+      </div>
+      <table><thead><tr><th>Kode</th><th>Nama</th><th>Kategori</th><th>Harga</th><th>Stok</th></tr></thead><tbody id="tbMenu"></tbody></table>
+    </section>
+
+    <!-- 2. TRANSAKSI -->
+    <section id="transaksi" class="tab">
+      <h2>Transaksi Baru</h2>
+      <div class="bar">
+        <input id="pelanggan" placeholder="Nama pelanggan (opsional)">
+        <select id="pilihMenu"></select>
+        <input id="jumlah" type="number" min="1" value="1" style="width:70px">
+        <button onclick="tambahKeranjang()">Tambah</button>
+      </div>
+      <table><thead><tr><th>Menu</th><th>Jml</th><th>Harga</th><th>Subtotal</th><th></th></tr></thead><tbody id="tbKeranjang"></tbody></table>
+      <div id="ringkasan" class="kotak"></div>
+      <div class="bar">
+        <input id="bayar" type="number" min="0" placeholder="Uang dibayar">
+        <button onclick="prosesBayar()">Bayar</button>
+        <button class="abu" onclick="keranjang=[];renderKeranjang()">Batal</button>
+      </div>
+      <pre id="struk" class="kotak" hidden></pre>
+    </section>
+
+    <!-- 3. KELOLA MENU -->
+    <section id="kelola" class="tab">
+      <h2>Kelola Menu &amp; Stok</h2>
+      <div class="bar">
+        <input id="nNama" placeholder="Nama menu">
+        <input id="nKategori" placeholder="Kategori">
+        <input id="nHarga" type="number" min="1" placeholder="Harga" style="width:100px">
+        <input id="nStok" type="number" min="0" placeholder="Stok" style="width:80px">
+        <button onclick="tambahMenu()">Tambah Menu</button>
+      </div>
+      <table><thead><tr><th>Kode</th><th>Nama</th><th>Harga</th><th>Stok</th><th>Aksi</th></tr></thead><tbody id="tbKelola"></tbody></table>
+    </section>
+
+    <!-- 4. RIWAYAT -->
+    <section id="riwayat" class="tab">
+      <h2>Riwayat Transaksi</h2>
+      <table><thead><tr><th>ID</th><th>Waktu</th><th>Pelanggan</th><th>Total</th></tr></thead><tbody id="tbRiwayat"></tbody></table>
+    </section>
+
+    <!-- 5. LAPORAN -->
+    <section id="laporan" class="tab">
+      <h2>Laporan Penjualan</h2>
+      <div id="isiLaporan" class="kotak"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
